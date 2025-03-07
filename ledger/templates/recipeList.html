@@ -11,8 +11,8 @@
             Recipe Book
         </h1>
         <ul>
-            {% for i in recipes %}
-                <li><a href="{{i.link}}">{{i.name}}</a></li>
+            {% for recipe in object_list %}
+                <li><a href="{{ recipe.get_absolute_url }}">{{recipe.name}}</a></li>
             {% endfor %}
         </ul>
     </body>

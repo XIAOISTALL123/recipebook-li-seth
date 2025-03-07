@@ -11,8 +11,8 @@
             Recipe Book 
         </h1>
         <ul>
-            {% for i in ingredients %}
-                <li>{{ i.name }}: {{ i.quantity}}</li>
+            {% for ingredient in object.ingredients.all %}
+                <li>{{ ingredient.ingredient.name }}{{ ": " }}{{ ingredient.quantity }}</li>
             {% endfor %}
         </ul>
     </body>

@@ -8,7 +8,10 @@
     
     <body>
         <h1>
-            Recipe Book 
+            {{ recipe.name }}
+        </h1>
+        <h1>
+            By {{ recipe.author }}
         </h1>
         <ul>
             {% for ingredient in object.ingredients.all %}

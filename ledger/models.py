@@ -2,6 +2,7 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.utils.timezone import now
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
@@ -18,8 +19,8 @@ class Ingredient(models.Model):
 
 class Recipe(models.Model):
     """Model for a recipe."""
-    name = models.CharField(max_length = 255)
-    author = models.CharField(max_length = 50)
+    name = models.CharField(max_length = 255, null = True)
+    author = models.CharField(max_length = 50, null = True)
     created_on = models.DateTimeField(auto_now_add = True)
     updated_on = models.DateTimeField(auto_now = True)
     def __str__(self):

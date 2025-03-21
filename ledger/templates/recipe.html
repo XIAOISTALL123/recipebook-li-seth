@@ -1,22 +1,17 @@
-<!DOCTYPE html>
-<html lang="en-US">
-    <head>
-        <title>
-            "Recipe Book"
-        </title>
-    </head>
-    
-    <body>
-        <h1>
-            {{ recipe.name }}
-        </h1>
-        <h1>
-            By {{ recipe.author }}
-        </h1>
-        <ul>
-            {% for ingredient in object.ingredients.all %}
-                <li>{{ ingredient.ingredient.name }}{{ ": " }}{{ ingredient.quantity }}</li>
-            {% endfor %}
-        </ul>
-    </body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Recipe Book{% endblock %}
+{% block content %}
+    <h1>
+        {{ recipe.name }}
+    </h1>
+    <h1>
+        By {{ recipe.author }}
+    </h1>
+    <ul>
+        {% for ingredient in object.ingredients.all %}
+            <li>{{ ingredient.ingredient.name }}{{ ": " }}{{ ingredient.quantity }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

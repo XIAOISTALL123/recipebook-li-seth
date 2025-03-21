@@ -70,6 +70,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'recipebook.wsgi.application'
 
+LOGIN_URL = 'accounts/login/'
+LOGIN_REDIRECT_URL = '/recipes/list/'
+
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

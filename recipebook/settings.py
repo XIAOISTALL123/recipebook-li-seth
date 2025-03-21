@@ -70,8 +70,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'recipebook.wsgi.application'
 
-LOGIN_URL = 'accounts/login/'
+LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/recipes/list/'
+LOGOUT_REDIRECT_URL = 'login'
 
 
 # Database

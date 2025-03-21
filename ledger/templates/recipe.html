@@ -3,12 +3,9 @@
 
 {% block title %}Recipe Book{% endblock %}
 {% block content %}
-    <h1>
-        {{ recipe.name }}
-    </h1>
-    <h1>
+    <h2>
         By {{ recipe.author }}
-    </h1>
+    </h2>
     <ul>
         {% for ingredient in object.ingredients.all %}
             <li>{{ ingredient.ingredient.name }}{{ ": " }}{{ ingredient.quantity }}</li>

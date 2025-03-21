@@ -5,6 +5,7 @@
     </head>
     <body>
         <h1>Recipe Book</h1>
+        <h2>{{ object.name }}</h2>
         {% block content %}
         {% endblock %}
         {% if user.is_authenticated %}

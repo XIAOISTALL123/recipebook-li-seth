@@ -15,5 +15,10 @@
                 <li><a href="{{ recipe.get_absolute_url }}">{{recipe.name}}</a></li>
             {% endfor %}
         </ul>
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Logout</button>
+        </form>
     </body>
 </html>

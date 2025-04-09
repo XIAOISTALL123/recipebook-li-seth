@@ -9,7 +9,7 @@
     <ul>
         {% for image in object.image.all %}
         {% if image %}
-            <img src="{{ image.image.url }}" alt="">
+            <img src="{{ image.image.url }}" alt="image.description">
         {% endif %}
         {% endfor %}
         {% for ingredient in object.ingredients.all %}

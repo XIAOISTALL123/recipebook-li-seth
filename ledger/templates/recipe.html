@@ -7,9 +7,11 @@
         By {{ recipe.author }}
     </h2>
     <ul>
-        {% if object.recipeimage_image %}
-        <img src = "{{ object.recipeimage_image.url }}" alt = "">
+        {% for image in object.image.all %}
+        {% if image %}
+            <img src="{{ image.image.url }}" alt="">
         {% endif %}
+        {% endfor %}
         {% for ingredient in object.ingredients.all %}
             <li>{{ ingredient.ingredient.name }}{{ ": " }}{{ ingredient.quantity }}</li>
         {% endfor %}

@@ -22,5 +22,4 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
     model = Recipe
     form_class = RecipeCreateForm
     template_name = 'recipeCreate.html'
-    success_url = reverse_lazy('recipe/add/')
     redirect_field_name = 'accounts/login'

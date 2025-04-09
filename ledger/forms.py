@@ -2,6 +2,6 @@ from django import forms
 from .models import Recipe
 
 class RecipeCreateForm(forms.ModelForm):
-    class Create:
+    class Meta:
         model = Recipe
-        fields = ['name', 'author']
+        fields = '__all__'

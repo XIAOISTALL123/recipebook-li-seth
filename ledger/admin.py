@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Recipe, Ingredient, RecipeIngredient, Profile, RecipeImage
-from django.contrib.auth.admin import UserAdmin     
+from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
+from .models import Recipe, Ingredient, RecipeIngredient, Profile, RecipeImage
 
 class ProfileInline(admin.StackedInline):
     model = Profile

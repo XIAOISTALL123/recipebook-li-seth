@@ -3,6 +3,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404
 from .models import Recipe, RecipeImage
 from .forms import RecipeCreateForm, RecipeImageForm, IngredientFormSet, RecipeImageFormSet
 
@@ -44,7 +45,7 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
 
 class RecipeImageAddView(LoginRequiredMixin, CreateView):
     model = Recipe
-    form_class = RecipeImageForm
+    form_class = RecipeImageForm 
     template_name = 'recipeImage.html'
     redirect_field_name = 'accounts/login'
     
@@ -53,7 +54,6 @@ class RecipeImageAddView(LoginRequiredMixin, CreateView):
         if self.request.POST:
             context['image_formset'] = RecipeImageFormSet(self.request.POST, self.request.FILES,
                                                             queryset = RecipeImage.objects.none())
-            r = RecipeImageForm(self.request.POST)  
         else:
             context['image_formset'] = RecipeImageFormSet(queryset = RecipeImage.objects.none())
         return context
@@ -61,14 +61,21 @@ class RecipeImageAddView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         context = self.get_context_data()
         image_formset = context['image_formset']
-        if image_formset.is_valid() and form.is_valid():
-            self.object = form.save()
+
+        if image_formset.is_valid():
+            recipe = get_object_or_404(Recipe, pk=self.kwargs.get('pk'))
 
             for image_form in image_formset:
                 if image_form.cleaned_data:
                     image = image_form.save(commit = False)
-                    image.recipe = self.object
+                    image.recipe = recipe
                     image.save()
 
-            return redirect(self.get_success_url())
+            return redirect(recipe.get_absolute_url())
         return self.form_invalid(form)
+
+    def get_form(self, form_class = None):
+        form = super().get_form(form_class)
+        for field in form.fields.values():
+            field.required = False
+        return form

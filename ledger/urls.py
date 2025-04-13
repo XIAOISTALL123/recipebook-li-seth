@@ -2,10 +2,11 @@ from django.urls import path
 from django.contrib.auth.views import LoginView
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import RecipeListView, RecipeDetailView, RecipeCreateView
+from .views import RecipeListView, RecipeDetailView, RecipeCreateView, RecipeImageAddView
 
 urlpatterns = [
     path('recipe/<int:pk>/', RecipeDetailView.as_view(), name = "recipe"),
+    path('recipe/<int:pk>/add_image/', RecipeImageAddView.as_view(), name = 'add_image'),
     path('recipes/list/', RecipeListView.as_view(), name = "recipes/list"),
     path('accounts/login/', LoginView.as_view(), name='login'),
     path('recipe/add/', RecipeCreateView.as_view(), name = 'add'),

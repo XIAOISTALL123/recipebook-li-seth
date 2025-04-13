@@ -5,16 +5,13 @@
 {% block content %}
     <form method= "post" enctype = "multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
-        <h3>Ingredients</h3>
-        {{ formset.management_form }}
-        {% for form in formset %}
-            {{ form.as_p }}
+        <h3>Add Image</h3>
+        {{ image_formset.management_form }}
+        {% for image_form in image_formset %}
+            {{ image_form.as_p }}
         {% endfor %}
         <button type="submit">Submit</button>
     </form>
-
-    <p></p>
 
     <form method="POST" action="{% url 'logout' %}">
         {% csrf_token %}

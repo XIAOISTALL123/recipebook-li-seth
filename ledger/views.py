@@ -4,8 +4,9 @@ from django.views.generic.edit import CreateView
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
-from .models import Recipe, RecipeImage
-from .forms import RecipeCreateForm, RecipeImageForm, IngredientFormSet, RecipeImageFormSet
+from django.urls import reverse
+from .models import Recipe, RecipeImage, Ingredient
+from .forms import RecipeCreateForm, RecipeImageForm, IngredientFormSet, RecipeImageFormSet, IngredientCreateForm, IngredientCreateFormSet
 
 class RecipeListView(LoginRequiredMixin, ListView):
     model = Recipe
@@ -75,6 +76,35 @@ class RecipeImageAddView(LoginRequiredMixin, CreateView):
                     image.save()
 
             return redirect(recipe.get_absolute_url())
+        return self.form_invalid(form)
+
+    def get_form(self, form_class = None):
+        form = super().get_form(form_class)
+        for field in form.fields.values():
+            field.required = False
+        return form 
+
+class IngredientAddView(LoginRequiredMixin, CreateView):
+    model = Ingredient
+    form_class = IngredientCreateForm
+    template_name = 'ingredientCreate.html'
+    redirect_field_name = 'accounts/login'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context['formset'] = IngredientCreateFormSet(self.request.POST, queryset = Ingredient.objects.none())
+        else:
+            context['formset'] = IngredientCreateFormSet(queryset = Ingredient.objects.none())
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        formset = context['formset']
+
+        if formset.is_valid():
+            formset.save()
+            return redirect(reverse("ledger:recipes/list"))
         return self.form_invalid(form)
 
     def get_form(self, form_class = None):

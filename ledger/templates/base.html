@@ -8,19 +8,17 @@
         <h2>{{ object.name }}</h2>
         {% block content %}
         {% endblock %}
-        {% url 'ledger:add' as add_url %}
-        {% url 'ledger:add_image' as add_image_url %}
-        {% if user.is_authenticated and not request.path == add_url %}
-            {% if request.path == add_image_url %}
-                {% if user.is_authenticated %}
-                <form method="POST" action="{% url 'logout' %}">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit">Logout</button>
-                </form>
-                {% else %}
-                    <a href="{% url 'login' %}">Login</a></li>
-                {% endif %}
+        {% url 'ledger:recipe' as recipe %}
+        {% url 'ledger:recipes/list' as recipelist %}
+        {% if user.is_authenticated and request.path == recipe or request.path == recipelist %}
+            {% if user.is_authenticated %}
+            <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Logout</button>
+            </form>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a></li>
             {% endif %}
         {% endif %}
     </body>

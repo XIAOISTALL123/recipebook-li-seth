@@ -5,7 +5,7 @@ from .models import Recipe, RecipeIngredient, RecipeImage
 class RecipeCreateForm(forms.ModelForm):
     class Meta:
         model = Recipe
-        fields = '__all__'
+        fields = ['name']
 
 class RecipeImageForm(forms.ModelForm):
     class Meta:

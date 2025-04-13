@@ -32,11 +32,14 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
         return context
 
     def form_valid(self, form):
+        form.instance.author = self.request.user.username
         context = self.get_context_data()
         formset = context['formset']
+
         if formset.is_valid():
             self.object = form.save()
             ingredients = formset.save(commit = False)
+            
             for ingredient in ingredients:
                 ingredient.recipe = self.object
                 ingredient.save()
